@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Full-Stack Development: Spring Boot & Angular</title>
+
+    <!-- Reveal.js CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css"
+    />
+
+    <!-- Theme for code syntax highlighting -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/monokai.min.css"
+    />
+
+    <style>
+      .section-title {
+        background: linear-gradient(45deg, #6db33f, #dd0031);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+        font-size: 2em;
+      }
+
+      .spring-boot-color {
+        color: #6db33f;
+      }
+
+      .angular-color {
+        color: #dd0031;
+      }
+
+      .content-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .theory-box {
+        background: rgba(255, 255, 255, 0.1);
+        border-left: 4px solid #4fc3f7;
+        padding: 10px;
+        border-radius: 0 5px 5px 0;
+        font-size: 0.75em;
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .lab-box {
+        background: rgba(255, 255, 255, 0.1);
+        border-left: 4px solid #ff6b00;
+        padding: 10px;
+        border-radius: 0 5px 5px 0;
+        font-size: 0.75em;
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .phase-badge {
+        background: #ff6b00;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 0.65em;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      .two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+
+      .three-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 15px;
+      }
+
+      .description {
+        font-size: 0.7em;
+        color: #ccc;
+        margin-top: 3px;
+        line-height: 1.2;
+      }
+
+      .compact-list {
+        font-size: 0.75em;
+        line-height: 1.3;
+      }
+
+      .compact-list li {
+        margin-bottom: 6px;
+      }
+
+      .lab-steps {
+        font-size: 0.7em;
+        background: rgba(255, 107, 0, 0.1);
+        padding: 8px;
+        border-radius: 5px;
+        margin-top: 8px;
+      }
+
+      .lab-steps ol {
+        margin: 5px 0;
+        padding-left: 20px;
+      }
+
+      h2 {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+      }
+
+      h3 {
+        font-size: 1.2em;
+      }
+
+      h4 {
+        font-size: 0.9em;
+        margin-bottom: 6px;
+      }
+
+      pre {
+        font-size: 0.6em;
+        margin: 5px 0;
+      }
+
+      .slide-content {
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+
+      .code-flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .code-wrapper {
+        background-color: #222; /* Dark background for code blocks */
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto; /* Allow horizontal scrolling for long lines */
+        flex: 0 1 auto;
+        min-width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Slide 1: Title -->
+        <section>
+          <h1 class="section-title">Full-Stack Development</h1>
+          <h3 style="font-size: 1.1em">Spring Boot & Angular</h3>
+          <div class="two-column">
+            <div>
+              <h2 class="spring-boot-color" style="font-size: 1.2em">
+                Spring Boot
+              </h2>
+              <p style="font-size: 0.75em">REST API Backend</p>
+            </div>
+            <div>
+              <h2 class="angular-color" style="font-size: 1.2em">Angular</h2>
+              <p style="font-size: 0.75em">Single Page Application Frontend</p>
+            </div>
+          </div>
+          <p style="font-size: 0.65em">
+            <small>20-Lesson Intensive Course | 2 Hours Daily</small>
+          </p>
+        </section>
+
+        <!-- Slide 2: Course Overview -->
+        <section>
+          <h2 style="font-size: 1.3em">Course Overview</h2>
+          <div class="three-column">
+            <div>
+              <div class="phase-badge">Phase 1</div>
+              <h4 class="spring-boot-color">Backend Foundation</h4>
+              <ul class="compact-list">
+                <li>REST APIs with Spring Boot</li>
+                <li>Database Integration</li>
+                <li>JPA & Hibernate</li>
+                <li>API Best Practices</li>
+              </ul>
+            </div>
+            <div>
+              <div class="phase-badge">Phase 2</div>
+              <h4 class="angular-color">Frontend Experience</h4>
+              <ul class="compact-list">
+                <li>Angular Components</li>
+                <li>TypeScript & Services</li>
+                <li>HTTP Client</li>
+                <li>Reactive Forms</li>
+              </ul>
+            </div>
+            <div>
+              <div class="phase-badge">Phase 3</div>
+              <h4>Full-Stack Fusion</h4>
+              <ul class="compact-list">
+                <li>Integration</li>
+                <li>Routing & Navigation</li>
+                <li>Deployment</li>
+                <li>Final Project</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Phase 1 Section -->
+        <section>
+          <section>
+            <h1 class="section-title">Phase 1: Backend Foundation</h1>
+            <h3 class="spring-boot-color" style="font-size: 1.1em">
+              Spring Boot Mastery
+            </h3>
+            <p style="font-size: 0.75em">
+              Lessons 1-5: Building Robust REST APIs
+            </p>
+          </section>
+
+          <!-- Lesson 1 - Part 1 -->
+          <section>
+            <div class="phase-badge">Lesson 1 - Part 1</div>
+            <h2 style="font-size: 1.3em">Welcome to the Stack!</h2>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4>📚 Theory Overview</h4>
+                <ul class="compact-list">
+                  <li>
+                    Full-Stack Architecture
+                    <div class="description">
+                      Client-server model with separation of concerns
+                    </div>
+                  </li>
+                  <li>
+                    Spring Boot Introduction
+                    <div class="description">
+                      Opinionated framework for rapid development
+                    </div>
+                  </li>
+                  <li>
+                    Project Initialization
+                    <div class="description">
+                      Using Spring Initializr for project setup
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="lab-box">
+                <h4>🔬 Lab: Environment Setup</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Install JDK 17+ on your system</li>
+                    <li>Install IDE (IntelliJ IDEA or VS Code)</li>
+                    <li>
+                      Install HTTPie for API testing
+                      (https://httpie.io/docs/cli)
+                    </li>
+                    <li>Verify installations with terminal commands</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Lesson 1 - Part 2 -->
+          <section>
+            <div class="phase-badge">Lesson 1 - Part 2</div>
+            <h2 style="font-size: 1.3em">First Spring Boot Application</h2>
+
+            <div class="content-container">
+              <div class="lab-box">
+                <h4>🔬 Lab: Create First Project</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Visit start.spring.io in browser</li>
+                    <li>
+                      Select:
+                      <ul style="font-size: 0.7em">
+                        <li>Project: Maven</li>
+                        <li>Language: Java</li>
+                        <li>Spring Boot: 3.x</li>
+                        <li>Dependencies: Spring Web</li>
+                      </ul>
+                    </li>
+                    <li>Generate and download project</li>
+                    <li>Import into your IDE</li>
+                  </ol>
+                </div>
+              </div>
+
+              <div class="lab-box">
+                <h4>🔬 Lab: Create Hello Endpoint</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Create new Java class: HelloController</li>
+                    <li>Add @RestController annotation</li>
+                    <li>Create method with @GetMapping("/hello")</li>
+                    <li>Return "Hello, World!" string</li>
+                    <li>Test with `http :8080/hello`</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="java" data-trim style="font-size: 0.55em;">
+@RestController
+public class HelloController {
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello, World!";
+    }
+}
+                    </code></pre>
+            </div>
+          </section>
+
+          <!-- Lesson 2 - Part 1 -->
+          <section>
+            <div class="phase-badge">Lesson 2 - Part 1</div>
+            <h2 style="font-size: 1.3em">RESTful APIs & CRUD</h2>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4>📚 REST Principles</h4>
+                <ul class="compact-list">
+                  <li>
+                    HTTP Methods
+                    <div class="description">
+                      GET(read), POST(create), PUT(update), DELETE(remove)
+                    </div>
+                  </li>
+                  <li>
+                    Stateless Communication
+                    <div class="description">
+                      Each request contains all necessary information
+                    </div>
+                  </li>
+                  <li>
+                    Resource-Based URLs
+                    <div class="description">
+                      URLs represent resources, not actions
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="lab-box">
+                <h4>🔬 Lab: Book API Structure</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Create Book class with id, title, author fields</li>
+                    <li>Create BookController with @RestController</li>
+                    <li>Use List&lt;Book&gt; for in-memory storage</li>
+                    <li>Implement GET /api/books endpoint</li>
+                    <li>Test with `http :8080/api/books`</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="java" data-trim style="font-size: 0.55em;">
+// Book.java
+
+public class Book {
+
+    private Long id;
+    private String title;
+    private String author;
+
+    // constructors, getters, setters
+    public Book() {}
+
+    public Book(Long id, String title, String author) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+}
+                    </code></pre>
+            </div>
+          </section>
+
+          <!-- Lesson 2 - Part 2 -->
+          <section>
+            <div class="phase-badge">Lesson 2 - Part 2</div>
+            <h2 style="font-size: 1.3em">Advanced REST Endpoints</h2>
+
+            <div class="content-container">
+              <div class="lab-box">
+                <h4>🔬 Lab: Complete CRUD Operations</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Add @PathVariable for GET /api/books/{id}</li>
+                    <li>Implement POST /api/books with @RequestBody</li>
+                    <li>Add auto-increment ID generation</li>
+                    <li>
+                      Test all endpoints using HTTPie:
+                      <ul style="font-size: 0.7em">
+                        <li>`http :8080/api/books` (GET all books)</li>
+                        <li>`http :8080/api/books/1` (GET book by ID)</li>
+                        <li>
+                          `http POST :8080/api/books title="New Book"
+                          author="Author Name"` (POST new book)
+                        </li>
+                        <li>
+                          `http PUT :8080/api/books/1 title="Updated Title"
+                          author="Updated Author"` (PUT update book)
+                        </li>
+                        <li>`http DELETE :8080/api/books/1` (DELETE book)</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="java" data-trim style="font-size: 0.55em;" >
+// BookController.java (modified for PUT and DELETE - in-memory)
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+// Assuming Book class is defined as in Lesson 2 - Part 1
+
+@RestController
+@RequestMapping("/api/books")
+public class BookController {
+    // Re-using the in-memory list and nextId from Lesson 2 - Part 1 for demonstration
+    private List&lt;Book&gt; books = new ArrayList<>();
+    private Long nextId = 1L;
+
+    public BookController() {
+        books.add(new Book(nextId++, "The Great Gatsby", "F. Scott Fitzgerald"));
+        books.add(new Book(nextId++, "1984", "George Orwell"));
+    }
+
+    @GetMapping
+    public List&lt;Book&gt; getAllBooks() {
+        return bookRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable Long id) {
+        return bookRepository.findById(id).orElse(null);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Book createBook(@RequestBody Book book) {
+        return bookRepository.save(book);
+    }
+
+    @PutMapping("/{id}")
+    public Book updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+        return books.stream()
+                .filter(book -> book.getId().equals(id))
+                .findFirst()
+                .map(book -> {
+                    book.setTitle(updatedBook.getTitle());
+                    book.setAuthor(updatedBook.getAuthor());
+                    return book;
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Book not found"));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBook(@PathVariable Long id) {
+        if (!books.removeIf(book -> book.getId().equals(id))) {
+            throw new IllegalArgumentException("Book not found");
+        }
+    }
+}
+                    </code></pre>
+            </div>
+          </section>
+
+          <!-- Lesson 3 - Part 1 -->
+          <section>
+            <div class="phase-badge">
+              Lesson 3 - Part 1 : Database with JPA & H2
+            </div>
+            <h2 style="font-size: 1.3em">Database with JPA & H2</h2>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4>📚 JPA & Hibernate</h4>
+                <ul class="compact-list">
+                  <li>
+                    Object-Relational Mapping (ORM)
+                    <div class="description">
+                      Map Java objects to database tables automatically
+                    </div>
+                  </li>
+                  <li>
+                    Spring Data JPA
+                    <div class="description">
+                      Abstraction layer for database operations
+                    </div>
+                  </li>
+                  <li>
+                    Repository Pattern
+                    <div class="description">
+                      Consistent data access interface
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="lab-box">
+                <h4>🔬 Lab: Setup JPA & H2</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Add Spring Data JPA and H2 dependencies to pom.xml</li>
+                    <li>Convert Book class to Entity with @Entity</li>
+                    <li>Add @Id and @GeneratedValue to id field</li>
+                    <li>
+                      Create BookRepository interface extending JpaRepository
+                    </li>
+                    <li>Configure H2 in application.yaml</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Lesson 3 - Part 2 : Dependencies 🛠️ -->
+          <section>
+            <div class="phase-badge">Lesson 3 - Part 2 : Dependencies 🛠️</div>
+            <h2 style="font-size: 1.3em">Dependencies</h2>
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="xml" data-trim style="font-size: 0.55em;">
+          <!-- pom.xml additions -->
+          &lt;dependency&gt;
+              &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+              &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+          &lt;/dependency&gt;
+          &lt;dependency&gt;
+              &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+              &lt;artifactId&gt;h2&lt;/artifactId&gt;
+              &lt;scope&gt;runtime&lt;/scope&gt;
+          &lt;/dependency&gt;
+                              </code></pre>
+            </div>
+          </section>
+
+          <!-- Lesson 3 - Part 3 -->
+          <section>
+            <div class="phase-badge">Lesson 3 - Part 3 : Implementation 🛠️</div>
+            <div style="font-size: 1.3em">@Entity Annotation</div>
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="java" data-trim style="font-size: 0.55em;">
+// Book.java (Entity)
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+    private String author;
+
+    // constructors, getters, setters
+    public Book() {}
+
+    public Book(Long id, String title, String author) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+}
+
+</code></pre>
+            </div>
+          </section>
+
+          <!-- Lesson 3 - Part 4 -->
+          <section>
+            <div class="phase-badge">Lesson 3 - Part 4 : Implementation 🛠️</div>
+            <div style="font-size: 1.3em">JpaRepository Interface</div>
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="java" data-trim style="font-size: 0.55em;">
+// BookRepository.java
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BookRepository extends JpaRepository&lt;Book, Long&gt; {
+}
+                    </code></pre>
+            </div>
+          </section>
+
+          <!-- Lesson 3 - Part 5 -->
+          <section>
+            <div class="phase-badge">Lesson 3 - Part 5 : Implementation 🛠️</div>
+
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="java" data-trim style="font-size: 0.55em;">
+// BookController.java (modified for JPA Repository)
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/books")
+public class BookController {
+
+    // 1. Inject BookRepository into BookController
+    @Autowired
+    private BookRepository bookRepository;
+
+    // 2. Replace in-memory list with repository calls
+    // 3. Update GET endpoints to use repository.findAll()
+    @GetMapping
+    public List&lt;Book&gt; getAllBooks() {
+        return bookRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable Long id) {
+        return bookRepository.findById(id).orElse(null);
+    }
+
+    // 4. Update POST endpoint to use repository.save()
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Book createBook(@RequestBody Book book) {
+        return bookRepository.save(book);
+    }
+
+    // 5. Update PUT endpoint to use repository.save()
+    @PutMapping("/{id}")
+    public Book updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+        return bookRepository.findById(id)
+                .map(book -> {
+                    book.setTitle(updatedBook.getTitle());
+                    book.setAuthor(updatedBook.getAuthor());
+                    return bookRepository.save(book);
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Book not found"));
+    }
+
+    // 6. Update DELETE endpoint to use repository.deleteById()
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBook(@PathVariable Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw new IllegalArgumentException("Book not found");
+        }
+        bookRepository.deleteById(id);
+    }
+}
+                    </code></pre>
+            </div>
+          </section>
+
+          <!-- Lesson 3 - Part 6 : Application Properties 🛠️ -->
+          <section>
+            <div class="phase-badge">
+              Lesson 3 - Part 6 : Application Properties 🛠️
+            </div>
+            <h2 style="font-size: 1.3em">Application Properties</h2>
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="yaml" data-trim style="font-size: 0.55em;">
+# application.yaml
+spring:
+  application:
+    name: BoekIJ
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:bookdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+                    </code></pre>
+            </div>
+
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="bash" data-trim style="font-size: 0.55em;">
+# Test H2 console at: 
+http://localhost:8080/h2-console
+              </code></pre>
+            </div>
+          </section>
+
+          <!-- Lesson 4 - Part 1 -->
+          <section>
+            <div class="phase-badge">Lesson 4 - Part 1</div>
+            <h2 style="font-size: 1.3em">Production Database</h2>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4>📚 PostgreSQL & Production DB</h4>
+                <ul class="compact-list">
+                  <li>
+                    Production Database
+                    <div class="description">
+                      Enterprise-grade relational database
+                    </div>
+                  </li>
+                  <li>
+                    Connection Pooling
+                    <div class="description">
+                      Efficient database connection management
+                    </div>
+                  </li>
+                  <li>
+                    DataSource Configuration
+                    <div class="description">
+                      Externalized database configuration
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="lab-box">
+                <h4>🔬 Lab: PostgreSQL Setup</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Install PostgreSQL on your system</li>
+                    <li>Create new database: bookdb</li>
+                    <li>Update `pom.xml` with PostgreSQL dependency</li>
+                    <li>Configure `application.yaml` for PostgreSQL</li>
+                    <li>Test connection with running application</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Lesson 5 - Part 1 -->
+          <section>
+            <div class="phase-badge">Lesson 5 - Part 1</div>
+            <h2 style="font-size: 1.3em">Robust API Design</h2>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4>📚 API Best Practices</h4>
+                <ul class="compact-list">
+                  <li>
+                    DTO Pattern
+                    <div class="description">
+                      Separate API contracts from internal entities
+                    </div>
+                  </li>
+                  <li>
+                    Exception Handling
+                    <div class="description">
+                      Global error handling strategies
+                    </div>
+                  </li>
+                  <li>
+                    @RestControllerAdvice
+                    <div class="description">
+                      Centralized exception management
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="lab-box">
+                <h4>🔬 Lab: DTO Implementation</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Create BookDTO class without JPA annotations</li>
+                    <li>
+                      Update controller to use BookDTO instead of Book entity
+                    </li>
+                    <li>Add mapping logic between Entity and DTO</li>
+                    <li>
+                      Test API responses using `http :8080/api/books` and `http
+                      POST :8080/api/books id:=1 title="DTO Book" author="DTO
+                      Author"`
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="java" data-trim style="font-size: 0.55em;">
+// BookDTO.java
+public class BookDTO {
+    private Long id;
+    private String title;
+    private String author;
+
+    // Constructors
+    public BookDTO() {}
+
+    public BookDTO(Long id, String title, String author) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+}
+
+// BookController.java (modified)
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/api/books")
+public class BookController {
+
+    private List&lt;Book&gt; books = new ArrayList<>();
+    private Long nextId = 1L;
+
+    public BookController() {
+        books.add(new Book(nextId++, "The Great Gatsby", "F. Scott Fitzgerald"));
+        books.add(new Book(nextId++, "1984", "George Orwell"));
+    }
+
+    @GetMapping
+    public List&lt;BookDTO&gt; getAllBooks() {
+        return bookRepository.findAll().stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping
+    public BookDTO createBook(@RequestBody BookDTO bookDTO) {
+        Book book = convertToEntity(bookDTO);
+        book = bookRepository.save(book);
+        return convertToDto(book);
+    }
+
+    private BookDTO convertToDto(Book book) {
+        return new BookDTO(book.getId(), book.getTitle(), book.getAuthor());
+    }
+
+    private Book convertToEntity(BookDTO bookDTO) {
+        Book book = new Book();
+        book.setId(bookDTO.getId()); // ID might be null for new books
+        book.setTitle(bookDTO.getTitle());
+        book.setAuthor(bookDTO.getAuthor());
+        return book;
+    }
+}
+                    </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <!-- Phase 2 Section -->
+        <section>
+          <section>
+            <h1 class="section-title">Phase 2: Frontend Experience</h1>
+            <h3 class="angular-color" style="font-size: 1.1em">
+              Angular Mastery
+            </h3>
+            <p style="font-size: 0.75em">
+              Lessons 6-10: Building Dynamic User Interfaces
+            </p>
+          </section>
+
+          <!-- Lesson 6 - Part 1 -->
+          <section>
+            <div class="phase-badge">Lesson 6 - Part 1</div>
+            <h2 style="font-size: 1.3em">Welcome to Angular!</h2>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4>📚 Angular Architecture</h4>
+                <ul class="compact-list">
+                  <li>
+                    Components & Modules
+                    <div class="description">
+                      Building blocks of Angular applications
+                    </div>
+                  </li>
+                  <li>
+                    TypeScript Benefits
+                    <div class="description">
+                      Static typing and enhanced tooling
+                    </div>
+                  </li>
+                  <li>
+                    Angular CLI
+                    <div class="description">
+                      Command-line interface for project management
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="lab-box">
+                <h4>🔬 Lab: Environment Setup</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Install Node.js (version 18 or higher)</li>
+                    <li>Install Angular CLI: npm install -g @angular/cli</li>
+                    <li>Verify installation: ng version</li>
+                    <li>Create new project: ng new book-ui</li>
+                    <li>Choose routing: Yes, styles: CSS</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Lesson 6 - Part 2 -->
+          <section>
+            <div class="phase-badge">Lesson 6 - Part 2</div>
+            <h2 style="font-size: 1.3em">First Angular Application</h2>
+
+            <div class="content-container">
+              <div class="lab-box">
+                <h4>🔬 Lab: Project Setup & First Component</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Navigate to project: cd book-ui</li>
+                    <li>Start development server: ng serve</li>
+                    <li>Open browser to http://localhost:4200</li>
+                    <li>Generate component: ng g c book-list</li>
+                    <li>Add &lt;app-book-list&gt; to app.component.html</li>
+                    <li>Verify component renders correctly</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="code-flex-container">
+              <pre
+                class="code-wrapper"
+              ><code class="bash" data-trim style="font-size: 0.55em;">
+# Create new Angular project
+ng new book-ui
+
+# Navigate to project
+cd book-ui
+
+# Generate component
+ng generate component book-list
+
+# Serve application
+ng serve
+                    </code></pre>
+            </div>
+          </section>
+
+          <!-- Lesson 7 - Part 1 -->
+          <section>
+            <div class="phase-badge">Lesson 7 - Part 1</div>
+            <h2 style="font-size: 1.3em">Data Binding & Templates</h2>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4>📚 Angular Data Binding</h4>
+                <ul class="compact-list">
+                  <li>
+                    Interpolation {{"{{"}} }
+                    <div class="description">
+                      Display component properties in templates
+                    </div>
+                  </li>
+                  <li>
+                    Structural Directives
+                    <div class="description">
+                      *ngFor for loops, *ngIf for conditional rendering
+                    </div>
+                  </li>
+                  <li>
+                    Event Binding
+                    <div class="description">
+                      (click) for user interaction handling
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="lab-box">
+                <h4>🔬 Lab: Display Book List</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Create Book interface in book.model.ts</li>
+                    <li>Add books array to book-list.component.ts</li>
+                    <li>Use *ngFor in template to display books</li>
+                    <li>Add basic styling with CSS</li>
+                    <li>Test with sample data</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Lesson 9 - Part 1 -->
+          <section>
+            <div class="phase-badge">Lesson 9 - Part 1</div>
+            <h2 style="font-size: 1.3em">Full-Stack Connection</h2>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4>📚 HTTP Client & Observables</h4>
+                <ul class="compact-list">
+                  <li>
+                    HttpClientModule
+                    <div class="description">
+                      Angular's HTTP client for API calls
+                    </div>
+                  </li>
+                  <li>
+                    Observables & RxJS
+                    <div class="description">
+                      Reactive programming for async operations
+                    </div>
+                  </li>
+                  <li>
+                    Error Handling
+                    <div class="description">
+                      Graceful handling of HTTP errors
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="lab-box">
+                <h4>🔬 Lab: Connect to Backend API</h4>
+                <div class="lab-steps">
+                  <ol>
+                    <li>Import HttpClientModule in app.module.ts</li>
+                    <li>Create BookService with HttpClient</li>
+                    <li>Implement getBooks() method with HTTP GET</li>
+                    <li>
+                      Update component to use service instead of mock data
+                    </li>
+                    <li>Handle CORS configuration in backend</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- Final Slides -->
+        <section>
+          <section>
+            <h1 class="section-title">Course Completion</h1>
+            <h3 style="font-size: 1.1em">What You've Achieved</h3>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4 class="spring-boot-color">Backend Skills</h4>
+                <ul class="compact-list">
+                  <li>REST API Development</li>
+                  <li>Spring Boot Configuration</li>
+                  <li>JPA & Database Integration</li>
+                  <li>Exception Handling</li>
+                  <li>API Security Basics</li>
+                </ul>
+              </div>
+              <div class="theory-box">
+                <h4 class="angular-color">Frontend Skills</h4>
+                <ul class="compact-list">
+                  <li>Component Architecture</li>
+                  <li>TypeScript Programming</li>
+                  <li>Reactive Forms</li>
+                  <li>HTTP Client Integration</li>
+                  <li>Single Page Applications</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 style="font-size: 1.3em">Next Steps in Your Journey</h2>
+
+            <div class="content-container">
+              <div class="theory-box">
+                <h4>🛡️ Security</h4>
+                <ul class="compact-list">
+                  <li>JWT Authentication</li>
+                  <li>OAuth2 Integration</li>
+                  <li>Spring Security</li>
+                  <li>Role-Based Access</li>
+                </ul>
+              </div>
+              <div class="theory-box">
+                <h4>🚀 Advanced Topics</h4>
+                <ul class="compact-list">
+                  <li>Microservices</li>
+                  <li>Docker & Kubernetes</li>
+                  <li>WebSockets</li>
+                  <li>Performance Optimization</li>
+                </ul>
+              </div>
+              <div class="theory-box">
+                <h4>🎯 Specialization</h4>
+                <ul class="compact-list">
+                  <li>Mobile Development</li>
+                  <li>Cloud Platforms (AWS/Azure)</li>
+                  <li>DevOps Practices</li>
+                  <li>Testing Strategies</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h1 style="font-size: 1.8em">🎓 Congratulations!</h1>
+            <p style="font-size: 0.9em">You are now a Full-Stack Developer!</p>
+            <div style="margin-top: 30px">
+              <p style="font-size: 0.8em">Keep Building, Keep Learning! 🚀</p>
+              <p style="font-size: 0.7em">#FullStackMastery</p>
+            </div>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <!-- Reveal.js Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
+
+    <script>
+      // Initialize Reveal.js
+      Reveal.initialize({
+        hash: true,
+        transition: "slide",
+        plugins: [RevealHighlight],
+        width: 1200,
+        height: 700,
+        margin: 0.04,
+      });
+    </script>
+  </body>
+</html>
