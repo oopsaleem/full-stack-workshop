@@ -1,4 +1,4 @@
-# full-stack-workshop
+# Full-stack workshop
 
 #### Presentation [Slides](https://oopsaleem.github.io/full-stack-workshop/slide.html)
 
