@@ -1,10 +1,25 @@
 # full-stack-workshop
+Prerequisites to this workshop.
 
-Prerequisits is to follow java fundamentals course d.
+## Presentation [Slides](https://oopsaleem.github.io/full-stack-workshop/slide.html)
 
-## Java course  
-https://www.w3schools.com/java/
 
-## Git course
-https://youtube.com/playlist?list=PLTZYG7bZ1u6qck0rYNHO2Yfjzq5ZRRTCe&si=5L21ee3hmwsESSb4/
+## Full-Stack Architecture Diagram
 
+[Diagram](https://oopsaleem.github.io/full-stack-workshop/architecture_diagram.html)
+
+
+### 1. Java fundamentals
+1. [w3schools](https://www.w3schools.com/java/)
+2. [Course for Absolute Beginners](https://www.youtube.com/watch?v=GoXwIVyNvX0&list)
+
+### 2. Database Design Course
+[Learn how to design and plan a database for beginners
+](https://www.youtube.com/watch?v=ztHopE5Wnpc)
+
+## [Optional] Courses
+### Git [Playlist](https://youtube.com/playlist?list=PLTZYG7bZ1u6qck0rYNHO2Yfjzq5ZRRTCe&si=5L21ee3hmwsESSb4/)
+
+
+## Databases
+[Intro to Databases with SQL – Full University Course](https://www.youtube.com/watch?v=WXk7yDqsKxs)
