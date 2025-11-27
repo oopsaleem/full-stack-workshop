@@ -1,13 +1,13 @@
 # full-stack-workshop
-Prerequisites to this workshop.
 
-## Presentation [Slides](https://oopsaleem.github.io/full-stack-workshop/slide.html)
+#### Presentation [Slides](https://oopsaleem.github.io/full-stack-workshop/slide.html)
 
 
-## Full-Stack Architecture Diagram
+#### Full-Stack Architecture [Diagram](https://oopsaleem.github.io/full-stack-workshop/architecture_diagram.html)
 
-[Diagram](https://oopsaleem.github.io/full-stack-workshop/architecture_diagram.html)
 
+## Prerequisites to this workshop.
+For better understanding this workshop, expected from you to follow the below prerequisits:
 
 ### 1. Java fundamentals
 1. [w3schools](https://www.w3schools.com/java/)
