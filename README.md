@@ -23,3 +23,8 @@ For better understanding this workshop, expected from you to follow the below pr
 
 ## Databases
 [Intro to Databases with SQL – Full University Course](https://www.youtube.com/watch?v=WXk7yDqsKxs)
+
+
+## Full-stack Vacature
+
+https://werkenbijdesvb.nl/vacature/fullstack-developer-1221103/?utm_source=linkedin&utm_medium=referral
