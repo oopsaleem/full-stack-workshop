@@ -483,14 +483,14 @@ public class HelloController {
               </div>
 
               <div class="lab-box">
-                <h4>🔬 Lab: Personeel API Structure</h4>
+                <h4>🔬 Lab: Book API Structure</h4>
                 <div class="lab-steps">
                   <ol>
-                    <li>Create Personeel class with id, title, author fields</li>
-                    <li>Create PersoneelController with @RestController</li>
-                    <li>Use List&lt;Personeel&gt; for in-memory storage</li>
-                    <li>Implement GET /api/personeel endpoint</li>
-                    <li>Test with `http :8080/api/personeel`</li>
+                    <li>Create Book class with id, title, author fields</li>
+                    <li>Create BookController with @RestController</li>
+                    <li>Use List&lt;Book&gt; for in-memory storage</li>
+                    <li>Implement GET /api/book endpoint</li>
+                    <li>Test with `http :8080/api/book`</li>
                   </ol>
                 </div>
               </div>
@@ -505,18 +505,18 @@ public class HelloController {
               <pre
                 class="code-wrapper"
               ><code class="java" data-trim style="font-size: 0.55em;">
-// Personeel.java
+// Book.java
 
-public class Personeel {
+public class Book {
 
     private Long id;
     private String title;
     private String author;
 
     // constructors, getters, setters
-    public Personeel() {}
+    public Book() {}
 
-    public Personeel(Long id, String title, String author) {
+    public Book(Long id, String title, String author) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -560,21 +560,21 @@ public class Personeel {
                 <h4>🔬 Lab: Complete CRUD Operations</h4>
                 <div class="lab-steps">
                   <ol>
-                    <li>Add @PathVariable for GET /api/personeel/{id}</li>
-                    <li>Implement POST /api/personeel with @RequestBody</li>
+                    <li>Add @PathVariable for GET /api/book/{id}</li>
+                    <li>Implement POST /api/book with @RequestBody</li>
                     <li>Add auto-increment ID generation</li>
                     <li>
                       Test all endpoints using HTTPie:
                       <ul style="font-size: 0.7em">
-                        <li>`http :8080/api/personeel` (GET all personeel)</li>
-                        <li>`http :8080/api/personeel/1` (GET personeel by ID)</li>
+                        <li>`http :8080/api/book` (GET all book)</li>
+                        <li>`http :8080/api/book/1` (GET book by ID)</li>
                         <li>
-                          `http POST :8080/api/personeel title="New Personeel"\n                          author="Author Name"` (POST new personeel)
+                          `http POST :8080/api/book title="New Book"\n                          author="Author Name"` (POST new book)
                         </li>
                         <li>
-                          `http PUT :8080/api/personeel/1 title="Updated Title"\n                          author="Updated Author"` (PUT update personeel)
+                          `http PUT :8080/api/book/1 title="Updated Title"\n                          author="Updated Author"` (PUT update book)
                         </li>
-                        <li>`http DELETE :8080/api/personeel/1` (DELETE personeel)</li>
+                        <li>`http DELETE :8080/api/book/1` (DELETE book)</li>
                       </ul>
                     </li>
                   </ol>
@@ -591,7 +591,7 @@ public class Personeel {
               <pre
                 class="code-wrapper"
               ><code class="java" data-trim style="font-size: 0.55em;" >
-// PersoneelController.java (modified for PUT and DELETE - in-memory)
+// BookController.java (modified for PUT and DELETE - in-memory)
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -605,59 +605,59 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-// Assuming Personeel class is defined as in Lesson 2 - Part 2
+// Assuming Book class is defined as in Lesson 2 - Part 2
 
 @RestController
-@RequestMapping("/api/personeel")
-public class PersoneelController {
+@RequestMapping("/api/book")
+public class BookController {
     // Re-using the in-memory list and nextId from Lesson 2 - Part 2 for demonstration
-    private List<Personeel> personeel = new ArrayList<>();
+    private List<Book> book = new ArrayList<>();
     private Long nextId = 1L;
 
-    public PersoneelController() {
-        personeel.add(new Personeel(nextId++, "Personeel Title 1", "Personeel Author 1"));
-        personeel.add(new Personeel(nextId++, "Personeel Title 2", "Personeel Author 2"));
+    public BookController() {
+        book.add(new Book(nextId++, "Book Title 1", "Book Author 1"));
+        book.add(new Book(nextId++, "Book Title 2", "Book Author 2"));
     }
 
     @GetMapping
-    public List<Personeel> getAllPersoneel() {
-        return personeel;
+    public List<Book> getAllBook() {
+        return book;
     }
 
     @GetMapping("/{id}")
-    public Personeel getPersoneelById(@PathVariable Long id) {
-        return personeel.stream()
-                .filter(personeelItem -> personeelItem.getId().equals(id))
+    public Book getBookById(@PathVariable Long id) {
+        return book.stream()
+                .filter(bookItem -> bookItem.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Personeel createPersoneel(@RequestBody Personeel personeel) {
-        personeel.setId(nextId++);
-        this.personeel.add(personeel);
-        return personeel;
+    public Book createBook(@RequestBody Book book) {
+        book.setId(nextId++);
+        this.book.add(book);
+        return book;
     }
 
     @PutMapping("/{id}")
-    public Personeel updatePersoneel(@PathVariable Long id, @RequestBody Personeel updatedPersoneel) {
-        return personeel.stream()
-                .filter(personeelItem -> personeelItem.getId().equals(id))
+    public Book updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+        return book.stream()
+                .filter(bookItem -> bookItem.getId().equals(id))
                 .findFirst()
-                .map(personeelItem -> {
-                    personeelItem.setTitle(updatedPersoneel.getTitle());
-                    personeelItem.setAuthor(updatedPersoneel.getAuthor());
-                    return personeelItem;
+                .map(bookItem -> {
+                    bookItem.setTitle(updatedBook.getTitle());
+                    bookItem.setAuthor(updatedBook.getAuthor());
+                    return bookItem;
                 })
-                .orElseThrow(() -> new IllegalArgumentException("Personeel not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Book not found"));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePersoneel(@PathVariable Long id) {
-        if (!personeel.removeIf(personeelItem -> personeelItem.getId().equals(id))) {
-            throw new IllegalArgumentException("Personeel not found");
+    public void deleteBook(@PathVariable Long id) {
+        if (!book.removeIf(bookItem -> bookItem.getId().equals(id))) {
+            throw new IllegalArgumentException("Book not found");
         }
     }
 }
@@ -700,10 +700,10 @@ public class PersoneelController {
                 <div class="lab-steps">
                   <ol>
                     <li>Add Spring Data JPA and H2 dependencies to pom.xml</li>
-                    <li>Convert Personeel class to Entity with @Entity</li>
+                    <li>Convert Book class to Entity with @Entity</li>
                     <li>Add @Id and @GeneratedValue to id field</li>
                     <li>
-                      Create PersoneelRepository interface extending JpaRepository
+                      Create BookRepository interface extending JpaRepository
                     </li>
                     <li>Configure H2 in application.yaml</li>
                   </ol>
@@ -742,14 +742,14 @@ public class PersoneelController {
               <pre
                 class="code-wrapper"
               ><code class="java" data-trim style="font-size: 0.55em;">
-// Personeel.java (Entity)
+// Book.java (Entity)
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Personeel {
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -757,9 +757,9 @@ public class Personeel {
     private String author;
 
     // constructors, getters, setters
-    public Personeel() {}
+    public Book() {}
 
-    public Personeel(Long id, String title, String author) {
+    public Book(Long id, String title, String author) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -802,10 +802,10 @@ public class Personeel {
               <pre
                 class="code-wrapper"
               ><code class="java" data-trim style="font-size: 0.55em;">
-// PersoneelRepository.java
+// BookRepository.java
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PersoneelRepository extends JpaRepository<Personeel, Long> {
+public interface BookRepository extends JpaRepository<Book, Long> {
 }
                     </code></pre>
             </div>
@@ -819,7 +819,7 @@ public interface PersoneelRepository extends JpaRepository<Personeel, Long> {
               <pre
                 class="code-wrapper"
               ><code class="java" data-trim style="font-size: 0.55em;">
-// PersoneelController.java (modified for JPA Repository)
+// BookController.java (modified for JPA Repository)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -835,52 +835,52 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/personeel")
-public class PersoneelController {
+@RequestMapping("/api/book")
+public class BookController {
 
-    // 1. Inject PersoneelRepository into PersoneelController
+    // 1. Inject BookRepository into BookController
     @Autowired
-    private PersoneelRepository personeelRepository;
+    private BookRepository bookRepository;
 
     // 2. Replace in-memory list with repository calls
     // 3. Update GET endpoints to use repository.findAll()
     @GetMapping
-    public List<Personeel> getAllPersoneel() {
-        return personeelRepository.findAll();
+    public List<Book> getAllBook() {
+        return bookRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Personeel getPersoneelById(@PathVariable Long id) {
-        return personeelRepository.findById(id).orElse(null);
+    public Book getBookById(@PathVariable Long id) {
+        return bookRepository.findById(id).orElse(null);
     }
 
     // 4. Update POST endpoint to use repository.save()
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Personeel createPersoneel(@RequestBody Personeel personeel) {
-        return personeelRepository.save(personeel);
+    public Book createBook(@RequestBody Book book) {
+        return bookRepository.save(book);
     }
 
     // 5. Update PUT endpoint to use repository.save()
     @PutMapping("/{id}")
-    public Personeel updatePersoneel(@PathVariable Long id, @RequestBody Personeel updatedPersoneel) {
-        return personeelRepository.findById(id)
-                .map(personeel -> {
-                    personeel.setTitle(updatedPersoneel.getTitle());
-                    personeel.setAuthor(updatedPersoneel.getAuthor());
-                    return personeelRepository.save(personeel);
+    public Book updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+        return bookRepository.findById(id)
+                .map(book -> {
+                    book.setTitle(updatedBook.getTitle());
+                    book.setAuthor(updatedBook.getAuthor());
+                    return bookRepository.save(book);
                 })
-                .orElseThrow(() -> new IllegalArgumentException("Personeel not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Book not found"));
     }
 
     // 6. Update DELETE endpoint to use repository.deleteById()
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePersoneel(@PathVariable Long id) {
-        if (!personeelRepository.existsById(id)) {
-            throw new IllegalArgumentException("Personeel not found");
+    public void deleteBook(@PathVariable Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw new IllegalArgumentException("Book not found");
         }
-        personeelRepository.deleteById(id);
+        bookRepository.deleteById(id);
     }
 }
                     </code></pre>
@@ -898,12 +898,12 @@ public class PersoneelController {
 # application.yaml
 spring:
   application:
-    name: PersoneelIJ
+    name: BookIJ
   h2:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:personeeldb
+    url: jdbc:h2:mem:bookdb
     driverClassName: org.h2.Driver
     username: sa
     password:
@@ -957,7 +957,7 @@ http://localhost:8080/h2-console
                 <div class="lab-steps">
                   <ol>
                     <li>PostgreSQL on your system</li>
-                    <li>Create new database: personeeldb</li>
+                    <li>Create new database: bookdb</li>
                     <li>Update `pom.xml` with PostgreSQL dependency</li>
                     <li>Configure `application.yaml` for PostgreSQL</li>
                     <li>Test connection with running application</li>
@@ -1062,7 +1062,7 @@ http://localhost:8080/h2-console
                     <li>
                       Create a `docker-compose.yaml` file in your project root
                     </li>
-                    <li>Define a PostgreSQL service with `personeeldb` database</li>
+                    <li>Define a PostgreSQL service with `bookdb` database</li>
                     <li>
                       Set environment variables for PostgreSQL (user, password,
                       db name)
@@ -1084,14 +1084,14 @@ http://localhost:8080/h2-console
                 class="code-wrapper"
               ><code class="yaml" data-trim style="font-size: 0.55em;">
 # docker-compose.yaml
-name: personeeldb
+name: bookdb
 services:
   postgresql:
     image: postgres:17.4
     # volumes:
-    #   - ~/volumes/jhipster/personeeldb/postgresql/:/var/lib/postgresql/data/
+    #   - ~/volumes/jhipster/bookdb/postgresql/:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=personeeldb
+      - POSTGRES_USER=bookdb
       - POSTGRES_HOST_AUTH_METHOD=trust
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER}']
@@ -1116,8 +1116,8 @@ services:
               ><code class="yaml" data-trim style="font-size: 0.55em;">
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/personeeldb
-    username: personeeldb
+    url: jdbc:postgresql://localhost:5433/bookdb
+    username: bookdb
     password:
     driver-class-name: org.postgresql.Driver
   jpa:
@@ -1162,14 +1162,14 @@ spring:
                 <h4>🔬 Lab: DTO Implementation</h4>
                 <div class="lab-steps">
                   <ol>
-                    <li>Create PersoneelDTO class without JPA annotations</li>
+                    <li>Create BookDTO class without JPA annotations</li>
                     <li>
-                      Update controller to use PersoneelDTO instead of Personeel entity
+                      Update controller to use BookDTO instead of Book entity
                     </li>
                     <li>Add mapping logic between Entity and DTO</li>
                     <li>
-                      Test API responses using `http :8080/api/personeel` and `http
-                      POST :8080/api/personeel id:=1 title="DTO Personeel" author="DTO
+                      Test API responses using `http :8080/api/book` and `http
+                      POST :8080/api/book id:=1 title="DTO Book" author="DTO
                       Author"`
                     </li>
                   </ol>
@@ -1244,9 +1244,9 @@ spring:
                   ><code class="java" data-trim style="font-size: 0.85em;">
     // BAD: Showing the kitchen to customers
     @RestController
-    public class PersoneelController {
-        public Personeel getPersoneel() {
-            return personeelRepository.findById(1L);
+    public class BookController {
+        public Book getBook() {
+            return bookRepository.findById(1L);
             // Returns everything: IDs, timestamps,
             // internal fields, kitchen secrets!
         }
@@ -1302,7 +1302,7 @@ spring:
                 ><code class="java" data-trim style="font-size: 0.75em;">
 // GOOD: Show customers only what they need to see
 
-public class PersoneelDTO {
+public class BookDTO {
     private String title;      // On the menu
     private String author;     // On the menu
     private String description; // On the menu
@@ -1310,10 +1310,10 @@ public class PersoneelDTO {
 }
 
 @RestController
-public class PersoneelController {
-    public PersoneelDTO getPersoneel() {
-        Personeel kitchenPersoneel = personeelRepository.findById(1L);
-        return convertToMenu(kitchenPersoneel); // Only show menu items
+public class BookController {
+    public BookDTO getBook() {
+        Book kitchenBook = bookRepository.findById(1L);
+        return convertToMenu(kitchenBook); // Only show menu items
     }
 }
                       </code></pre>
@@ -1333,7 +1333,7 @@ public class PersoneelController {
                   class="code-wrapper"
                 ><code class="java" data-trim style="font-size: 0.55em;">
 @Entity
-public class Personeel {
+public class Book {
     @Id
     private Long id;           // Kitchen ID (internal)
     private String title;      // Menu item
@@ -1348,7 +1348,7 @@ public class Personeel {
                 <pre
                   class="code-wrapper"
                 ><code class="java" data-trim style="font-size: 0.55em;">
-public class PersoneelDTO {
+public class BookDTO {
 
     private String title;      // What customers see
     private String author;     // What customers see
@@ -1395,13 +1395,13 @@ public class PersoneelDTO {
                 ><code class="java" data-trim style="font-size: 0.55em;">
 // You can change your kitchen without changing the menu:
 
-public class Personeel {
+public class Book {
     // Changed internal field names
     private Long internalId;       // Was 'id'
-    private String personeelTitle;      // Was 'title'
+    private String bookTitle;      // Was 'title'
     // Kitchen changed, menu stays the same!
 }
-public class PersoneelDTO {
+public class BookDTO {
     private String title;          // Menu unchanged!
     private String author;         // Menu unchanged!
 }
@@ -1415,7 +1415,7 @@ public class PersoneelDTO {
                 ><code class="java" data-trim style="font-size: 0.55em;">
 // DTO lets you serve exactly what's needed:
 
-public class PersoneelDTO {
+public class BookDTO {
     private String title;
     private String author;
     // No unnecessary data from database
@@ -1434,16 +1434,16 @@ public class PersoneelDTO {
               <pre
                 class="code-wrapper"
               ><code class="java" data-trim style="font-size: 0.55em;">
-// PersoneelDTO.java
-public class PersoneelDTO {
+// BookDTO.java
+public class BookDTO {
     private Long id;
     private String title;
     private String author;
 
     // Constructors
-    public PersoneelDTO() {}
+    public BookDTO() {}
 
-    public PersoneelDTO(Long id, String title, String author) {
+    public BookDTO(Long id, String title, String author) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -1475,7 +1475,7 @@ public class PersoneelDTO {
     }
 }
 
-// PersoneelController.java (modified)
+// BookController.java (modified)
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -1489,41 +1489,41 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/personeel")
-public class PersoneelController {
+@RequestMapping("/api/book")
+public class BookController {
 
-    private List<Personeel> personeel = new ArrayList<>();
+    private List<Book> book = new ArrayList<>();
     private Long nextId = 1L;
 
-    public PersoneelController() {
-        personeel.add(new Personeel(nextId++, "Personeel Title 1", "Personeel Author 1"));
-        personeel.add(new Personeel(nextId++, "Personeel Title 2", "Personeel Author 2"));
+    public BookController() {
+        book.add(new Book(nextId++, "Book Title 1", "Book Author 1"));
+        book.add(new Book(nextId++, "Book Title 2", "Book Author 2"));
     }
 
     @GetMapping
-    public List<PersoneelDTO> getAllPersoneel() {
-        return personeelRepository.findAll().stream()
+    public List<BookDTO> getAllBook() {
+        return bookRepository.findAll().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
     @PostMapping
-    public PersoneelDTO createPersoneel(@RequestBody PersoneelDTO personeelDTO) {
-        Personeel personeel = convertToEntity(personeelDTO);
-        personeel = personeelRepository.save(personeel);
-        return convertToDto(personeel);
+    public BookDTO createBook(@RequestBody BookDTO bookDTO) {
+        Book book = convertToEntity(bookDTO);
+        book = bookRepository.save(book);
+        return convertToDto(book);
     }
 
-    private PersoneelDTO convertToDto(Personeel personeel) {
-        return new PersoneelDTO(personeel.getId(), personeel.getTitle(), personeel.getAuthor());
+    private BookDTO convertToDto(Book book) {
+        return new BookDTO(book.getId(), book.getTitle(), book.getAuthor());
     }
 
-    private Personeel convertToEntity(PersoneelDTO personeelDTO) {
-        Personeel personeel = new Personeel();
-        personeel.setId(personeelDTO.getId()); // ID might be null for new personeel
-        personeel.setTitle(personeelDTO.getTitle());
-        personeel.setAuthor(personeelDTO.getAuthor());
-        return personeel;
+    private Book convertToEntity(BookDTO bookDTO) {
+        Book book = new Book();
+        book.setId(bookDTO.getId()); // ID might be null for new book
+        book.setTitle(bookDTO.getTitle());
+        book.setAuthor(bookDTO.getAuthor());
+        return book;
     }
 }
                     </code></pre>
@@ -1571,19 +1571,19 @@ public class PersoneelController {
                 <h4>🔬 Lab: Implement Custom Exception</h4>
                 <div class="lab-steps">
                   <ol>
-                    <li>Create a custom `PersoneelNotFoundException`</li>
+                    <li>Create a custom `BookNotFoundException`</li>
                     <li>
                       Create `@ControllerAdvice` class to handle
-                      `PersoneelNotFoundException`
+                      `BookNotFoundException`
                     </li>
                     <li>
                       Return appropriate HTTP status code (e.g., 404 Not Found)
                     </li>
                     <li>
-                      Modify `PersoneelController` to throw `PersoneelNotFoundException`
+                      Modify `BookController` to throw `BookNotFoundException`
                     </li>
                     <li>
-                      Test with an invalid personeel ID: `http :8080/api/personeel/99`
+                      Test with an invalid book ID: `http :8080/api/book/99`
                     </li>
                   </ol>
                 </div>
@@ -1600,13 +1600,13 @@ public class PersoneelController {
               <pre
                 class="code-wrapper"
               ><code class="java" data-trim style="font-size: 0.55em;">
-// PersoneelNotFoundException.java
+// BookNotFoundException.java
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class PersoneelNotFoundException extends RuntimeException {
-    public PersoneelNotFoundException(String message) {
+public class BookNotFoundException extends RuntimeException {
+    public BookNotFoundException(String message) {
         super(message);
     }
 }
@@ -1620,8 +1620,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(PersoneelNotFoundException.class)
-    public ResponseEntity<String> handlePersoneelNotFoundException(PersoneelNotFoundException ex) {
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<String> handleBookNotFoundException(BookNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
@@ -1632,7 +1632,7 @@ public class GlobalExceptionHandler {
     }
 }
 
-// PersoneelController.java (modified for exception handling)
+// BookController.java (modified for exception handling)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -1648,47 +1648,47 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/personeel")
-public class PersoneelController {
+@RequestMapping("/api/book")
+public class BookController {
 
     @Autowired
-    private PersoneelRepository personeelRepository;
+    private BookRepository bookRepository;
 
     @GetMapping
-    public List<Personeel> getAllPersoneel() {
-        return personeelRepository.findAll();
+    public List<Book> getAllBook() {
+        return bookRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Personeel getPersoneelById(@PathVariable Long id) {
-        return personeelRepository.findById(id)
-                .orElseThrow(() -> new PersoneelNotFoundException("Personeel not found with ID: " + id));
+    public Book getBookById(@PathVariable Long id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("Book not found with ID: " + id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Personeel createPersoneel(@RequestBody Personeel personeel) {
-        return personeelRepository.save(personeel);
+    public Book createBook(@RequestBody Book book) {
+        return bookRepository.save(book);
     }
 
     @PutMapping("/{id}")
-    public Personeel updatePersoneel(@PathVariable Long id, @RequestBody Personeel updatedPersoneel) {
-        return personeelRepository.findById(id)
-                .map(personeel -> {
-                    personeel.setTitle(updatedPersoneel.getTitle());
-                    personeel.setAuthor(updatedPersoneel.getAuthor());
-                    return personeelRepository.save(personeel);
+    public Book updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+        return bookRepository.findById(id)
+                .map(book -> {
+                    book.setTitle(updatedBook.getTitle());
+                    book.setAuthor(updatedBook.getAuthor());
+                    return bookRepository.save(book);
                 })
-                .orElseThrow(() -> new PersoneelNotFoundException("Personeel not found with ID: " + id));
+                .orElseThrow(() -> new BookNotFoundException("Book not found with ID: " + id));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePersoneel(@PathVariable Long id) {
-        if (!personeelRepository.existsById(id)) {
-            throw new PersoneelNotFoundException("Personeel not found with ID: " + id);
+    public void deleteBook(@PathVariable Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw new BookNotFoundException("Book not found with ID: " + id);
         }
-        personeelRepository.deleteById(id);
+        bookRepository.deleteById(id);
     }
 }
                     </code></pre>
