@@ -1631,13 +1631,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BookNotFoundException.class)
-    public ResponseEntity<String> handleBookNotFoundException(BookNotFoundException ex) {
+    public ResponseEntity&lt;String> handleBookNotFoundException(BookNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     // Generic exception handler
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGenericException(Exception ex) {
+    public ResponseEntity&lt;String> handleGenericException(Exception ex) {
         return new ResponseEntity<>("An unexpected error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
