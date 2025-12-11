@@ -1369,7 +1369,7 @@ public class BookDTO {
             </div>
           </section>
 
-          <!-- Lesson 5 - Part 6: Why This Matters -->
+          <!-- Lesson 5 - Part 6 -->
           <section>
             <div class="phase-badge">Lesson 5 - Part 6</div>
             <div style="font-size: 1.3em">Why This Matters: 🛡️</div>
@@ -1435,7 +1435,7 @@ public class BookDTO {
             </div>
           </section>
 
-          <!-- Lesson 5 - Part 2 -->
+          <!-- Lesson 5 - Part 7 -->
           <section>
             <div class="phase-badge">Lesson 5 - Part 7</div>
             <div style="font-size: 1.3em">Code</div>
@@ -1540,7 +1540,7 @@ public class BookController {
             </div>
           </section>
 
-          <!-- Lesson 5 - Part 3 -->
+          <!-- Lesson 5 - Part 8 -->
           <section>
             <div class="phase-badge">Lesson 5 - Part 8</div>
             <div style="font-size: 1.3em">Exception Handling</div>
@@ -1601,7 +1601,7 @@ public class BookController {
             </div>
           </section>
 
-          <!-- Lesson 5 - Part 4 -->
+          <!-- Lesson 5 - Part 9 -->
           <section>
             <div class="phase-badge">Lesson 5 - Part 9</div>
             <div style="font-size: 1.3em">Custom Exception & Advice Code</div>
@@ -1704,6 +1704,177 @@ public class BookController {
                     </code></pre>
             </div>
           </section>
+
+
+          <!-- Lesson 5 - Part 10 -->
+          <section>
+            <div class="phase-badge">Lesson 5 - Part 10</div>
+            <div style="font-size: 1.3em">Final code refactore</div>
+
+            <div class="content-container">
+              <div class="code-flex-container">
+                <pre
+                class="code-wrapper"
+              ><code class="java" data-trim style="font-size: 0.55em;">
+
+// BookController.java (move business logic to service layer)
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/book")
+public class BookController {
+
+    private final BookService bookService;
+
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
+    @GetMapping
+    public List&lt;BookDTO> getBookList() {
+        return bookService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public BookDTO getBookById(@PathVariable Long id) {
+        return bookService.getById(id);
+    }
+
+    @GetMapping("/titleContains/{title}")
+    public List&lt;BookDTO> getBooksByTitleContains(
+      @PathVariable String title) {
+        return bookService.findByTitleContains(title);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public BookDTO createBook(@RequestBody BookDTO bookDTO) {
+        return bookService.create(bookDTO);
+    }
+
+    @GetMapping("fix")
+    public List&lt;BookDTO> updateBookInternalLibraryCode() {
+        return bookService.updateInternalLibraryCode();
+    }
+
+    @PutMapping("/{id}")
+    public BookDTO updateBook(@PathVariable Long id
+                            , @RequestBody BookDTO updatedBook) {
+        return bookService.update(id, updatedBook);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBook(@PathVariable Long id) {
+        bookService.delete(id);
+    }
+}
+                    </code></pre>
+              </div>
+
+              <div class="code-flex-container">
+                <pre
+                  class="code-wrapper"
+                ><code class="json" data-trim style="font-size: 0.55em;">
+// BookService.java
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+@Service
+public class BookService {
+    private final BookRepository bookRepository;
+
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    public List&lt;BookDTO> getAll() {
+        return bookRepository.findAll()
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    public BookDTO getById(Long id) {
+        Optional&lt;Book> optById = bookRepository.findById(id);
+        if (optById.isPresent()) {
+            return convertToDto(optById.get());
+        }  else {
+            throw new BookNotFoundException(
+              "Book not found with ID: " + id);
+        }
+    }
+
+    public List&lt;BookDTO> findByTitleContains(String title) {
+        return bookRepository.findBookByTitleContains(title)
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    public BookDTO create(BookDTO bookDTO) {
+        Book book = new Book();
+        book.setInternalLibraryCode(UUID.randomUUID().toString());
+        book.setTitle(bookDTO.getTitle());
+        book.setAuthor(bookDTO.getAuthor());
+        return (convertToDto(bookRepository.save(book)));
+    }
+
+    public List&lt;BookDTO> updateInternalLibraryCode() {
+        List&lt;Book> books = bookRepository.findAll()
+                .stream()
+                .filter(BookDTO -> BookDTO.getInternalLibraryCode() == null 
+                || BookDTO.getInternalLibraryCode().isEmpty())
+                .peek(BookDTO -> BookDTO.
+                  setInternalLibraryCode(UUID.randomUUID().toString()))
+                .collect(Collectors.toList());
+
+        return bookRepository.saveAll(books)
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    public BookDTO update(Long id, BookDTO updatedBook) {
+        return bookRepository.findById(id)
+                .map(bookItem -> {
+                    bookItem.setTitle(updatedBook.getTitle());
+                    bookItem.setAuthor(updatedBook.getAuthor());
+                    return convertToDto(bookRepository.save(bookItem));
+                })
+                .orElseThrow(() -> 
+                    new BookNotFoundException(
+                      "Book not found with ID: " + id));
+    }
+
+    public void delete(Long id) {
+        if (bookRepository.existsById(id)) {
+            bookRepository.deleteById(id);
+        } else  {
+            throw new BookNotFoundException("Book not found with ID: " + id);
+        }
+    }
+
+    // Utils code
+    private BookDTO convertToDto(Book book) {
+        return new  BookDTO(book.getId(), book.getTitle(), book.getAuthor());
+    }
+}
+                </code></pre>
+              </div>
+            </div>
+          </section>
+
+
+
         </section>
 
         <!-- insert HERE https://angular.dev/tutorials/first-app/01-hello-world -->
