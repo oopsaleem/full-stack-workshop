@@ -1254,9 +1254,9 @@ spring:
                   ><code class="java" data-trim style="font-size: 0.85em;">
     // BAD: Showing the kitchen to customers
     @RestController
-    public class BookController {
-        public Book getBook() {
-            return bookRepository.findById(1L);
+    public class DishController {
+        public Dish getDish() {
+            return dishRepository.findById(1L);
             // Returns everything: IDs, timestamps,
             // internal fields, kitchen secrets!
         }
@@ -1299,9 +1299,15 @@ spring:
                 <div>📚 DTOs Explained</div>
                 <ul class="compact-list">
                   <li>
+                    Entity (Kitchen Version)
+                    <div class="description">
+                      What you see in the kitchen.
+                    </div>
+                  </li>
+                  <li>
                     DTO (Data Transfer Object)
                     <div class="description">
-                      Your restaurant's menu – customers see only what they need
+                      What customers see on the menu, not what you see in the kitchen.
                     </div>
                   </li>
                 </ul>
@@ -1312,18 +1318,19 @@ spring:
                 ><code class="java" data-trim style="font-size: 0.75em;">
 // GOOD: Show customers only what they need to see
 
-public class BookDTO {
-    private String title;      // On the menu
-    private String author;     // On the menu
-    private String description; // On the menu
-    // NO internal kitchen details!
+public class DishDTO {
+    private String name;        // What customers see
+    private String type;        // What customers see
+    private String price;       // What customers see
+    private String ingredients; // What customers see
+    // NO internal details!
 }
 
 @RestController
-public class BookController {
-    public BookDTO getBook() {
-        Book kitchenBook = bookRepository.findById(1L);
-        return convertToMenu(kitchenBook); // Only show menu items
+public class DishController {
+    public DishDTO getDish() {
+        Dish dish = dishRepository.findById(1L);
+        return convertToMenu(dish); // Only show menu items
     }
 }
                       </code></pre>
@@ -1345,11 +1352,10 @@ public class BookController {
 @Entity
 public class Book {
     @Id
-    private Long id;           // Kitchen ID (internal)
+    private Long id;           // ID
     private String title;      // Menu item
     private String author;     // Menu item  
-    private Date createdAt;    // Kitchen timestamp (internal)
-    private String internalCode; // Kitchen secret (internal)
+    private String internalCode; // secret (internal)
 }
                     </code></pre>
               </div>
@@ -1444,6 +1450,54 @@ public class BookDTO {
               <pre
                 class="code-wrapper"
               ><code class="java" data-trim style="font-size: 0.55em;">
+// Book.java
+
+@Entity
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+    private String author;
+    private String internalCode;
+
+    // Constructors
+    public Book() {}
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getInternalCode() {
+      return internalCode;
+    }
+
+    public void setInternalCode(String internalCode) {
+        this.internalCode = internalCode;
+    }
+}
+
 // BookDTO.java
 public class BookDTO {
     private Long id;
@@ -1533,6 +1587,7 @@ public class BookController {
         book.setId(bookDTO.getId()); // ID might be null for new book
         book.setTitle(bookDTO.getTitle());
         book.setAuthor(bookDTO.getAuthor());
+        book.setInternalCode(UUID.randomUUID().toString());
         return book;
     }
 }
@@ -1638,7 +1693,8 @@ public class GlobalExceptionHandler {
     // Generic exception handler
     @ExceptionHandler(Exception.class)
     public ResponseEntity&lt;String> handleGenericException(Exception ex) {
-        return new ResponseEntity<>("An unexpected error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("An unexpected error occurred: " 
+                + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 
@@ -1756,11 +1812,6 @@ public class BookController {
         return bookService.create(bookDTO);
     }
 
-    @GetMapping("fix")
-    public List&lt;BookDTO> updateBookInternalLibraryCode() {
-        return bookService.updateInternalLibraryCode();
-    }
-
     @PutMapping("/{id}")
     public BookDTO updateBook(@PathVariable Long id
                             , @RequestBody BookDTO updatedBook) {
@@ -1821,26 +1872,9 @@ public class BookService {
     }
 
     public BookDTO create(BookDTO bookDTO) {
-        Book book = new Book();
-        book.setInternalLibraryCode(UUID.randomUUID().toString());
-        book.setTitle(bookDTO.getTitle());
-        book.setAuthor(bookDTO.getAuthor());
-        return (convertToDto(bookRepository.save(book)));
-    }
-
-    public List&lt;BookDTO> updateInternalLibraryCode() {
-        List&lt;Book> books = bookRepository.findAll()
-                .stream()
-                .filter(BookDTO -> BookDTO.getInternalLibraryCode() == null 
-                || BookDTO.getInternalLibraryCode().isEmpty())
-                .peek(BookDTO -> BookDTO.
-                  setInternalLibraryCode(UUID.randomUUID().toString()))
-                .collect(Collectors.toList());
-
-        return bookRepository.saveAll(books)
-                .stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+        Book newBook = convertToEntity(bookDTO);
+        Book savedBook = bookRepository.save(newBook);
+        return convertToDto(savedBook);
     }
 
     public BookDTO update(Long id, BookDTO updatedBook) {
@@ -1867,12 +1901,20 @@ public class BookService {
     private BookDTO convertToDto(Book book) {
         return new  BookDTO(book.getId(), book.getTitle(), book.getAuthor());
     }
+
+    private Book convertToEntity(BookDTO bookDTO) {
+        Book book = new Book();
+        book.setId(bookDTO.getId()); // ID might be null for new book
+        book.setTitle(bookDTO.getTitle());
+        book.setAuthor(bookDTO.getAuthor());
+        book.setInternalCode(UUID.randomUUID().toString());
+        return book;
+    }
 }
                 </code></pre>
               </div>
             </div>
           </section>
-
 
 
         </section>
