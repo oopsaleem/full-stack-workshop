@@ -348,6 +348,9 @@
             <p style="font-size: 0.75em">
               Lessons 1-5: Building Robust REST APIs
             </p>
+            <p style="font-size: 0.75em">
+              <a href="https://github.com/oopsaleem/frontoffice">https://github.com/oopsaleem/frontoffice</a>
+            </p>
           </section>
 
           <!-- Lesson 1 - Part 1 -->
@@ -1556,12 +1559,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/book")
 public class BookController {
 
-    private List&lt;Book> book = new ArrayList&lt;>();
-    private Long nextId = 1L;
+    private final BookRepository bookRepository;
 
-    public BookController() {
-        book.add(new Book(nextId++, "Book Title 1", "Book Author 1"));
-        book.add(new Book(nextId++, "Book Title 2", "Book Author 2"));
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping
@@ -1831,6 +1832,16 @@ public class BookController {
                 <pre
                   class="code-wrapper"
                 ><code class="java" data-trim style="font-size: 0.55em;">
+
+// BookRepository.java
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+
+public interface BookRepository extends JpaRepository&lt;Book, Long> {
+    List&lt;Book> findBooksByTitleContains(String title);
+}
+
 // BookService.java
 import org.springframework.stereotype.Service;
 
@@ -1865,7 +1876,7 @@ public class BookService {
     }
 
     public List&lt;BookDTO> findByTitleContains(String title) {
-        return bookRepository.findBookByTitleContains(title)
+        return bookRepository.findBooksByTitleContains(title)
                 .stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
