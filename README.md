@@ -5,6 +5,8 @@
 
 #### Full-Stack Architecture [Diagram](https://oopsaleem.github.io/full-stack-workshop/architecture_diagram.html)
 
+#### Full-Stack Workshop [Repository](https://github.com/oopsaleem/frontoffice)
+
 
 ## Prerequisites to this workshop.
 For better understanding this workshop, expected from you to follow the below prerequisits:
