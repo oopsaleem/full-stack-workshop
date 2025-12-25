@@ -11,7 +11,7 @@
 ## Prerequisites to this workshop.
 For better understanding this workshop, expected from you to follow the below prerequisits:
 
-### 1. Java fundamentals
+### 1. Java fundamentals tutorials
 1. [w3schools](https://www.w3schools.com/java/)
 2. [Course for Absolute Beginners](https://www.youtube.com/watch?v=GoXwIVyNvX0&list)
 
